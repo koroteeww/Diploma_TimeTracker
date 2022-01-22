@@ -1,0 +1,34 @@
+﻿@model WebExplorer.Models.LogOnModel
+@{
+    Layout = "_AccountLayout.cshtml";
+    ViewBag.Title = "Авторизация";
+}
+
+<!-- Форма авторизации -->
+<form class="form-horizontal" method="POST">
+    <div class="control-group">
+        <label class="control-label" for="login">Email или логин</label>
+        <div class="controls">
+            @Html.TextBoxFor(m=>m.Login, new {@class = "input-large", id="login", placeholder="Email \\ логин"})
+            <span class="help-inline">@Html.ValidationMessageFor(m=>m.Login)</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="password">Пароль</label>
+        <div class="controls">
+            @Html.PasswordFor(m=>m.Password, new {@class = "input-large", id="password", placeholder="Пароль"})
+        <span class="help-inline">@Html.ValidationMessageFor(m=>m.Password)</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                @Html.CheckBoxFor(m=>m.Remember,new { id="remember"})
+                <label for="remember">запомнить меня</label>
+            </label>
+            <button type="submit" class="btn btn-primary">Вход</button>
+        </div>
+    </div>
+    <script> $("#login").focus();</script>
+    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl"/>
+</form>

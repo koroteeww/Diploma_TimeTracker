@@ -1,0 +1,17 @@
+﻿@model WebExplorer.Models.NewsListAdminModel
+
+@{
+    ViewBag.Title = "Новости";
+    
+}
+<div class="container">
+@if (WebExplorer.Auth.WeMembership.IsAdmin)
+{   
+    <p>список новостей сайта для администратора</p>
+
+}
+else
+{
+    <p>Доступ закрыт</p>
+}
+    </div>

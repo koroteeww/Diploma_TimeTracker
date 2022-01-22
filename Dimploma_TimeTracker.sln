@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker", "WebExplorer\TimeTracker.csproj", "{B390C6B7-74C0-46D0-9A0E-89562BDECD40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrate", "SqlMigrate\SqlMigrate.csproj", "{661A4F3D-294A-4FD1-9451-78A923FDA439}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Publish|Any CPU = Publish|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B390C6B7-74C0-46D0-9A0E-89562BDECD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B390C6B7-74C0-46D0-9A0E-89562BDECD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B390C6B7-74C0-46D0-9A0E-89562BDECD40}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
+		{B390C6B7-74C0-46D0-9A0E-89562BDECD40}.Publish|Any CPU.Build.0 = Publish|Any CPU
+		{B390C6B7-74C0-46D0-9A0E-89562BDECD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B390C6B7-74C0-46D0-9A0E-89562BDECD40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Publish|Any CPU.Build.0 = Release|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Publish|Any CPU.Deploy.0 = Release|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661A4F3D-294A-4FD1-9451-78A923FDA439}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

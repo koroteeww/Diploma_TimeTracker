@@ -1,0 +1,60 @@
+﻿@model WebExplorer.Models.AccountModel
+@{
+    Layout = "_AccountLayout.cshtml";
+    ViewBag.Title = "Мы знаем кое-что о вас";
+}
+
+@if(ViewData.ModelState.IsValid)
+{
+    <script>
+        $("#account-form").toggleClass("edit-mode view-mode");
+    </script>
+}
+<div class="control-group">
+    <label class="control-label">Логин</label>
+    <div class="controls">
+        <div class="text-value edit-visible">@Model.Login</div>
+        <input type="hidden" name="login" value="@Model.Login">
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="email">Email</label>
+    <div class="controls">
+        <div class="text-value">@Model.Email</div>
+        @Html.TextBoxFor(m=>m.Email, new {@class = "input-xlarge", id="email", placeholder="Email"})
+        <span class="help-inline">@Html.ValidationMessageFor(m=>m.Email)</span>
+    </div>
+    
+</div>
+
+<div class="control-group edit-only">
+    <label class="control-label" for="password">Новый пароль</label>
+    <div class="controls">
+        @Html.PasswordFor(m=>m.Password, new {@class = "input-xlarge", id="password", placeholder="Не хотите менять - оставьте пустым"})
+        <span class="help-inline">@Html.ValidationMessageFor(m=>m.Password)</span>
+    </div>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <button type="button" id="account-button-edit" class="btn view-only">Это не правда!</button>
+        <button type="reset" id="account-button-reset" class="btn edit-only">И так было хорошо</button>
+        <button type="submit" class="btn edit-only btn-primary">Сохранить</button>
+    </div>
+</div>
+
+<script>
+    $("#account-button-edit, #account-button-reset").click(function() {
+        $("#account-form").toggleClass("edit-mode view-mode");
+    });
+    $("#password").blur(function() {
+        var textBox = $(this);
+        if (textBox.val() != "" && textBox.val().length < 8)
+            textBox.next().find(".field-validation-valid")
+                .text("Минимальная длина пароля - 8 символов")
+                .toggleClass("field-validation-valid field-validation-error")
+                .closest(".control-group")
+                .addClass("error");
+    });
+</script>

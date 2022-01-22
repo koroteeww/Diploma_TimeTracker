@@ -1,0 +1,41 @@
+﻿@model WebExplorer.Models.TaskTypesListModel
+
+@{
+    ViewBag.Title = "Типы задач";
+    
+}
+<div class="container">
+@if (WebExplorer.Auth.WeMembership.IsAdmin || WebExplorer.Auth.WeMembership.IsManager)
+{   
+    <p>список типов задач, доступен для начальника и админа</p>
+    <a class="news-edit-link" href="@Url.Action("Add")">Добавить тип задачи</a>
+        
+        <div style="margin: 5px;">
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">Ид типа: </td>
+                    <td class="tdDpt">Название типа: </td>
+                    <td class="tdDpt">Описание типа: </td>
+                </tr>
+                @foreach (var type in Model.TaskTypes)
+                {
+                    <tr class="trDpt">
+                        <td class="tdDpt">
+                            @type.Id
+                        </td>
+                        <td class="tdDpt">
+                            <a href="@Url.Action("Edit", new {id = type.Id})"> @type.Name</a></td>
+                        <td class="tdDpt">
+                            @type.Description
+                        </td>
+                        
+                    </tr>
+                }
+            </table>
+            </div>
+}
+else
+{
+    <p>Доступ закрыт</p>
+}
+    </div>

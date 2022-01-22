@@ -1,0 +1,2 @@
+2013-04-11 15:57:38.3533|INFO|WebExplorer.PreStartApp|Application PreStart
+2013-04-11 15:57:39.1203|INFO|WebExplorer.PreStartApp|index in homeconroller

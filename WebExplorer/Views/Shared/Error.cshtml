@@ -1,0 +1,12 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "_Layout.cshtml";
+}
+
+<!-- Ошибка -->
+<div class="container">
+    <div class="alert alert-error">
+        <h4>Увага!</h4> 
+        Вы только что сломали сайт. Теперь его нет. <a href="@Url.Action("Index","Home")">Совсем</a>.
+    </div>
+</div>

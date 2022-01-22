@@ -1,0 +1,33 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Models.Tasks.TaskTypeModel
+
+@{
+    Layout = "../Shared/_Form.cshtml";
+    ViewBag.Title = (Model.Id.HasValue)
+                        ? "Редактировать тип задачи"
+                        : "Создать тип задачи";
+}
+
+@if (WeMembership.IsAuthorized)
+{
+    <form class="form-horizontal news-add" method="POST">
+        <div class="control-group">
+            @Html.TextBoxFor(m => m.Name, new { @class = "input-xxlarge", id = "news-title", placeholder = "Наименование типа", reqired=true })
+        </div>
+        <div class="control-group">
+            @Html.TextBoxFor(m => m.Description, new { @class = "input-xxlarge", id = "news-title", placeholder = "Описание типа"})
+
+        </div>
+        
+        <p></p>
+        <p></p>
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary btn-large">@(Model.Id.HasValue ? "Сохранить" : "Создать")</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+}
+@section scripts
+{
+
+}

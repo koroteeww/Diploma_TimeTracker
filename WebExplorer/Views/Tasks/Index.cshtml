@@ -1,0 +1,93 @@
+﻿@model WebExplorer.Models.TaskListModel
+
+@{
+    ViewBag.Title = "Список задач";
+    
+}
+<div class="container">
+    <p>список задач. Админу показываются все задачи с возможностью редактировать
+        Начальнику показываются задачи пользователей из его отдела (и из подчиненных отдельной кнопкой)
+        Пользователю показываются только его задачи
+    </p>
+    @if (WebExplorer.Auth.WeMembership.IsAuthorized)
+    {
+        <a class="news-edit-link" href="@Url.Action("Add")">Добавить задачу</a>
+        <div>
+            <h2>Тут будет адаптивная таблица</h2>
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">Дата начала задачи: </td>
+                    <td class="tdDpt">Название задачи: </td>
+                    <td class="tdDpt">Описание задачи: </td>
+                    <td class="tdDpt">Автор: </td>
+                    <td class="tdDpt">Состояние задачи: </td>
+                    <td class="tdDpt">Тип задачи: </td>
+                    <td class="tdDpt">Затраты времени, часов: </td>
+                    <td class="tdDpt">Исполнители: </td>
+                    <td class="tdDpt">Клиенты: </td>
+                </tr>
+                <tr class="trDpt">
+                    <td class="tdDpt">Дата начала задачи: </td>
+                    <td class="tdDpt">Название задачи: </td>
+                    <td class="tdDpt">Описание задачи: </td>
+                    <td class="tdDpt">Автор: </td>
+                    <td class="tdDpt">Состояние задачи: </td>
+                    <td class="tdDpt">Тип задачи: </td>
+                    <td class="tdDpt">Затраты времени, часов: </td>
+                    <td class="tdDpt">Исполнители: </td>
+                    <td class="tdDpt">Клиенты: </td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin: 5px;">
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">Дата начала задачи: </td>
+                    <td class="tdDpt">Название задачи: </td>
+                    <td class="tdDpt">Описание задачи: </td>
+                    <td class="tdDpt">Автор: </td>
+                    <td class="tdDpt">Состояние задачи: </td>
+                    <td class="tdDpt">Тип задачи: </td>
+                    <td class="tdDpt">Затраты времени, часов: </td>
+                    <td class="tdDpt">Исполнители: </td>
+                    <td class="tdDpt">Клиенты: </td>
+                </tr>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr class="trDpt">
+                        <td class="tdDpt">
+                            @task.DateBeginS
+                        </td>
+                        <td class="tdDpt">
+                            <a href="@Url.Action("Edit", new {id = task.Id})"> @task.Name</a></td>
+                        <td class="tdDpt">
+                            @task.Description
+                        </td>
+                        <td class="tdDpt">
+                            @task.AuthorName
+                        </td>
+                        <td class="tdDpt">
+                            @task.State
+                        </td>
+                        <td class="tdDpt">
+                            @task.Type
+                        </td>
+                        <td class="tdDpt">
+                            @task.costs.ToString("G")
+                        </td>
+                        <td class="tdDpt">
+                            @task.Pefrormers
+                        </td>
+                        <td class="tdDpt">
+                            @task.Clients
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Доступ закрыт</p>
+    }
+    </div>

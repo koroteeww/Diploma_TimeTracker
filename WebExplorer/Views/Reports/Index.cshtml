@@ -1,0 +1,75 @@
+﻿@model WebExplorer.Models.ReportIndexModel
+
+@{
+    ViewBag.Title = "Отчеты по затратам времени";
+    Layout = "../Shared/_Form.cshtml";
+}
+<div class="container">
+    <p>
+        отчеты:
+        Админу показываются отчеты такие же как пользователю
+        Начальнику показываются отчеты с возможностью выбора любого пользователя или нескольких(??)
+        плюс оценка запланированных сроков и затра
+        плюс учесть то что на одну задачу может быть куча исполнителей
+            
+        Пользователю показывается отчет о затратах времени по задачам:
+        задача, дата начала-окончания,затраченное время ЭТОГО ПОЛЬЗОВАТЕЛЯ, комменты и т.д.
+    </p>
+    <div id="pickers">
+        <form class="form-horizontal news-add" method="POST">
+            <div class="control-group">
+                <label for="datebegin">Дата начала задач для отчета:</label>
+                @Html.TextBoxFor(m=>m.DateBeginForDisplay, new {@class = "datepicker", id="datebegin", placeholder=""})
+                <label for="dateend">Дата конца задач для отчета:</label>
+                @Html.TextBoxFor(m=>m.DateEndForDisplay, new {@class = "datepicker", id="dateend", placeholder=""})
+            
+            </div>
+            <div class="control-group">
+                <label>Тип задач:</label>
+                @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.TaskTypes, "Id", "Name"))
+
+            </div>
+            <div class="control-group">
+                <label>Статус задач:</label>
+                @Html.DropDownListFor(m => m.StateId, new SelectList(Model.TaskStates, "Id", "Name"))
+
+            </div>
+            <div class="control-group">
+                <label>Клиент задач:</label>
+                @Html.DropDownListFor(m => m.ClientId, new SelectList(Model.Clients, "Id", "Name"))
+
+            </div>
+            <div class="control-group">
+                <label>Исполнитель задач:</label>
+                @Html.DropDownListFor(m => m.PerformerId, new SelectList(Model.Performers, "Id", "WorkerName"))
+
+            </div>
+            <p></p>
+        
+            <div class="pull-left">
+                <button type="submit" class="btn btn-primary btn-large">Сформировать отчет</button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $.datepicker.setDefaults($.datepicker.regional["fr"]);
+        $.datepicker.setDefaults({ dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'] });
+        $('.datepicker').datepicker({
+            showOn: "both",
+            buttonImage: "../content/images/calendar.png",
+            buttonImageOnly: "true",
+            changeMonth: true,
+            changeYear: true,
+            showAnim: "slideDown",
+            firstDay: 1,
+            monthNamesShort: [ "Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сент", "Окт", "Ноя", "Дек" ],
+            dateFormat: 'dd.mm.yy'
+        });
+
+    </script>
+}

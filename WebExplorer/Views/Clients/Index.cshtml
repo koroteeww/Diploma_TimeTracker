@@ -1,0 +1,55 @@
+﻿@model WebExplorer.Models.ClientsListModel
+
+@{
+    ViewBag.Title = "Список сотрудников";
+    
+}
+<div class="container">
+@if (WebExplorer.Auth.WeMembership.IsAdmin || WebExplorer.Auth.WeMembership.IsManager)
+{
+    <p>список Работников предприятия (они же клиенты для которых мы делаем задачи)
+        доступ для админов и начальников
+    </p>
+    <a class="news-edit-link" href="@Url.Action("Add")">Добавить сотрудника</a>
+        
+        <div style="margin: 5px;">
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">ФИО сотрудника: </td>
+                    <td class="tdDpt">Название отдела: </td>
+                    <td class="tdDpt">Должность: </td>
+                    <td class="tdDpt">Начальник: </td>
+                    <td class="tdDpt">Кабинет: </td>
+                    <td class="tdDpt">Телефон: </td>
+                    
+                </tr>
+                @foreach (var client in Model.Clients)
+                {
+                    <tr class="trDpt">
+                        <td class="tdDpt">
+                           <a href="@Url.Action("Edit", new {id = client.Id})"> @client.Name</a></td>
+                        <td class="tdDpt">
+                            @client.DepartmentName
+                        </td>
+                        <td class="tdDpt">
+                            @client.Position
+                        </td>
+                        <td class="tdDpt">
+                            @client.IsManagerString
+                        </td>
+                        <td class="tdDpt">
+                            @client.Location
+                        </td>
+                         <td class="tdDpt">
+                            @client.Phone
+                        </td>
+                    </tr>
+                }
+            </table>
+            </div>
+}
+else
+{
+    <p>Доступ закрыт</p>
+}
+    </div>

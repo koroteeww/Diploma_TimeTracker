@@ -1,0 +1,17 @@
+﻿@model WebExplorer.Models.NewsCommentAdminModel
+
+@{
+    ViewBag.Title = "Список комментариев";
+    
+}
+<div class="container">
+@if (WebExplorer.Auth.WeMembership.IsAdmin)
+{
+    <p>список комментов сайта для админа
+        просто коммент, к какой новости относится, и кнопки редактировать и удалить</p>
+}
+else
+{
+    <p>Доступ закрыт</p>
+}
+    </div>

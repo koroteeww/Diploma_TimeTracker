@@ -1,0 +1,17 @@
+﻿@using WebExplorer.Auth
+@using WebExplorer.Helpers
+@model WebExplorer.Models.NewsModel
+Написал <span class="news-author">@Model.Author</span>, <span>@Model.Date</span>
+<span class="news-comment-count">
+    @Html.GetPlural(Model.CommentsCount, "{0} комментарий", "{0} комментария", "{0} комментариев", "Комментариев пока нет").
+</span>
+                    
+@if (Model.CanEdit)
+{
+    <a class="news-edit-link" href="@Url.Action("Edit", new {id = Model.Id})">
+        <span class="icon-pencil"></span>
+    </a>
+    <a class="news-remove-link" href="@Url.Action("Delete", new {id = Model.Id})">
+        <span class="icon-remove"></span>
+    </a>
+}

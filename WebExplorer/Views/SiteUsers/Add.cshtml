@@ -1,0 +1,60 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Models.SiteUsers.SiteUserAddModel
+
+@{
+    Layout = "../Shared/_Form.cshtml";
+    ViewBag.Title = "Создать пользователя";
+}
+
+@if (WeMembership.IsAuthorized && WeMembership.IsAdmin)
+{
+    <form class="form-horizontal news-add" method="POST">
+        <div class="control-group">
+            <label for="login">Логин на сайте</label>
+            @Html.TextBoxFor(m => m.Login, new {  id = "login", placeholder = "Логин", reqired=true })
+        </div>
+        <div class="control-group">
+            <label for="email">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { id = "email", placeholder = "Электронная почта"})
+            <span class="help-inline">@Html.ValidationMessageFor(m=>m.Email)</span>
+        </div>
+        <div class="control-group">
+            <label for="passwordadd">Пароль</label>
+            @Html.PasswordFor(m=>m.Pass, new {@class = "input-large", id="passwordadd", placeholder="Пароль"})
+            <span class="help-inline">@Html.ValidationMessageFor(m=>m.Pass)</span>
+        </div>
+        <div class="control-group">
+            @Html.CheckBoxFor(m => m.IsAdmin, new { @class = "input-xxlarge", id = "news-title", placeholder = "Администратор сайта"})
+            Является ли администратором сайта
+        </div>
+        <div class="control-group">
+            @Html.TextBoxFor(m => m.Comment, new { @class = "input-xxlarge", id = "news-title", placeholder = "Комментарии"})
+
+        </div>
+        <p>Выберите роль пользователя:</p>
+        <div>
+        @Html.DropDownListFor(m => m.SiteUserRoleId, new SelectList(Model.Roles, "Id", "RoleDescription"))
+            </div>
+        <p></p>
+        <p>Выберите связанного с пользователем работника:</p>
+        <div>
+            @if (Model.Workers.Any())
+            {
+                @Html.DropDownListFor(m => m.WorkerId, new SelectList(Model.Workers, "Id", "NameDptPos"))
+            }
+            else
+            {
+                @Html.Encode("Не найдено работников, не связанных с пользователями сайта. Создайте сначала работника, а затем пользователя.")
+            }
+        </div>
+        <p></p>
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary btn-large">Создать</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+}
+@section scripts
+{
+
+}

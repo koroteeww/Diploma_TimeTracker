@@ -1,0 +1,133 @@
+﻿@using Newtonsoft.Json
+@using WebExplorer.Auth
+@using WebExplorer.Models
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>@ViewBag.Title :: Система Учета и Контроля рабочего времени</title>
+        @Styles.Render("~/Content/libs")
+        @Styles.Render("~/Content/themes-base")
+        @Styles.Render("~/Content/css")
+        
+        @Scripts.Render("~/bundles/libs")
+        @Scripts.Render("~/bundles/application")
+        <script>
+            //информация о текущем пользователе
+            window.auth = @Html.Raw(JsonConvert.SerializeObject(WeMembership.IsAuthorized ? WeMembership.GetCurrentUser().ToUserModel() : null));
+        </script>
+    </head>
+    <body>
+        @{
+            var isAtHome = Request.Url != null && (Request.Url.LocalPath == "/" || Request.Url.LocalPath.StartsWith("/Home/Index"));
+        }
+        
+        <div class="navbar navbar-fixed-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/">Система УКРВ</a>
+                    <div class="nav-collapse">
+                    <!-- Меню аккаунта -->
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            @if (WeMembership.IsAuthorized)
+                            {
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-login" data-bind="text: 'Профиль ' + (auth && auth.login)"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "Account")">Мой профиль</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("LogOff", "Account")">Выход</a></li>
+                                </ul>
+                                <script>ko.applyBindings(window.auth,$("#topmenu-login")[0])</script>
+                            }
+                            else
+                            {
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Вход на сайт</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("LogOn", "Account")">Войти</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("PasswordRecovery", "Account")">Восстановление пароля</a></li>
+                                </ul>
+                            }
+                        </li>
+                    </ul>
+                    <!-- Главное меню -->
+                    <ul class="nav">
+                        @if (WeMembership.IsAuthorized)
+                        {
+                            <li class="dropdown">
+                                <a href="@Url.Action("Index", "News")" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-news">Новости сайта</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "News")">Список новостей</a></li>                                    
+                                    <li><a data-toggle="modal" href="@Url.Action("Add", "News")">Добавить новость</a></li>                                    
+                                </ul>
+
+                            </li>
+                            
+                            if (WeMembership.IsManager || WeMembership.IsAdmin)
+                            {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-edit">Просмотр данных</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "Clients")">Сотрудники</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "Departments")">Отделы</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "TaskTypes")">Типы задач</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "TaskStates")">Состояния задач</a></li>                                  
+                                    
+                                </ul>
+
+                            </li>
+                                
+                            }
+                            if (WeMembership.IsAdmin)
+                            {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-admin">Администрирование</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "SiteUsers")">Пользователи сайта</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("ListAdmin", "News")">Новости</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("ListAdmin", "Comment")">Комментарии</a></li>
+
+                                </ul>
+
+                            </li>
+                                                
+                            }
+                            <li class="">
+                                <a href="@Url.Action("Index", "Tasks")">Задачи</a>
+                            </li>
+                            <li class="">
+                                <a href="@Url.Action("Index", "Reports")">Отчеты</a>
+                            </li>
+                            
+
+
+
+
+
+
+                        }
+
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+                </div>
+            </div>
+    
+        
+        <header>
+            
+            <h2>@ViewBag.Title</h2>
+        </header>
+
+        @RenderBody()
+        
+        @RenderSection("scripts", required: false)
+        @Html.Partial("_Metrika")
+    </body>
+</html>

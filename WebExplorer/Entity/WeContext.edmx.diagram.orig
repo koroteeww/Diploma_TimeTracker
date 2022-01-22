@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7b91afb270e647d38a5dd67ac11878fe" Name="main" ZoomLevel="92" >
+        <EntityTypeShape EntityType="WeEntity.SiteUser" Width="1.5" PointX="4.125" PointY="4.375" />
+        <EntityTypeShape EntityType="WeEntity.Client" Width="1.5" PointX="3.5" PointY="0.75" />
+        <EntityTypeShape EntityType="WeEntity.Task" Width="1.5" PointX="0.75" PointY="0.625" />
+        <EntityTypeShape EntityType="WeEntity.TaskTypes" Width="1.5" PointX="5" PointY="3.25" />
+        <EntityTypeShape EntityType="WeEntity.TastStates" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WeEntity.Department" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WeEntity.PasswordRecover" Width="1.5" PointX="2.375" PointY="9.125" />
+        <EntityTypeShape EntityType="WeEntity.TaskTimeCost" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WeEntity.NewsComments" Width="1.5" PointX="5.625" PointY="9.125" />
+        <EntityTypeShape EntityType="WeEntity.News" Width="1.5" PointX="7.625" PointY="7.375" />
+        <AssociationConnector Association="WeEntity.SiteUserNews" />
+        <AssociationConnector Association="WeEntity.NewsNewsComments" />
+        <AssociationConnector Association="WeEntity.SiteUserNewsComments" />
+        <AssociationConnector Association="WeEntity.DepartmentDepartment" />
+        <AssociationConnector Association="WeEntity.ClientDepartment" />
+        <AssociationConnector Association="WeEntity.SiteUserClient" />
+        <AssociationConnector Association="WeEntity.TaskTypesTask" />
+        <AssociationConnector Association="WeEntity.TaskTastStates" />
+        <AssociationConnector Association="WeEntity.TaskTimeCostTask" />
+        <AssociationConnector Association="WeEntity.TaskSiteUserAutor" />
+        <AssociationConnector Association="WeEntity.TaskPerformers" />
+        <AssociationConnector Association="WeEntity.TaskClient" />
+        <AssociationConnector Association="WeEntity.TaskTimeCostSiteUser" />
+      </Diagram>
+      <Diagram DiagramId="553ee3f9ea6144d0a1d6d53db1f4c795" Name="News" >
+        <EntityTypeShape EntityType="WeEntity.News" Width="1.5" PointX="5.875" PointY="1.25" />
+        <EntityTypeShape EntityType="WeEntity.NewsComments" Width="1.5" PointX="6.625" PointY="4.625" />
+        <EntityTypeShape EntityType="WeEntity.SiteUser" Width="1.5" PointX="3.25" PointY="2" />
+        <AssociationConnector Association="WeEntity.SiteUserNews" />
+        <AssociationConnector Association="WeEntity.NewsNewsComments" />
+        <AssociationConnector Association="WeEntity.SiteUserNewsComments" />
+        <EntityTypeShape EntityType="WeEntity.PasswordRecover" Width="1.5" PointX="1" PointY="5.125" />
+      </Diagram>
+      <Diagram DiagramId="2e77b6cc83284a95a2c18ede3b29877e" Name="Client" >
+        <EntityTypeShape EntityType="WeEntity.Client" Width="1.5" PointX="3.25" PointY="1.875" />
+        <EntityTypeShape EntityType="WeEntity.Department" Width="2.375" PointX="6.875" PointY="1.75" />
+        <EntityTypeShape EntityType="WeEntity.SiteUser" Width="1.5" PointX="0.5" PointY="1.625" />
+        <AssociationConnector Association="WeEntity.DepartmentDepartment" />
+        <AssociationConnector Association="WeEntity.ClientDepartment" />
+        <AssociationConnector Association="WeEntity.SiteUserClient" />
+      </Diagram>
+      <Diagram DiagramId="fd0ccb14394b4060ab865ba60456b34e" Name="Tasks" ZoomLevel="97" >
+        <EntityTypeShape EntityType="WeEntity.Client" Width="1.5" PointX="10.25" PointY="1.75" />
+        <EntityTypeShape EntityType="WeEntity.SiteUser" Width="2" PointX="5.375" PointY="1" />
+        <AssociationConnector Association="WeEntity.SiteUserClient" />
+        <EntityTypeShape EntityType="WeEntity.Task" Width="1.5" PointX="5.875" PointY="6.125" />
+        <EntityTypeShape EntityType="WeEntity.TaskTimeCost" Width="1.5" PointX="8.375" PointY="6.25" />
+        <EntityTypeShape EntityType="WeEntity.TaskTypes" Width="1.5" PointX="2.75" PointY="5.25" />
+        <EntityTypeShape EntityType="WeEntity.TastStates" Width="1.5" PointX="2.75" PointY="7.5" />
+        <AssociationConnector Association="WeEntity.TaskTypesTask" />
+        <AssociationConnector Association="WeEntity.TaskTastStates" />
+        <AssociationConnector Association="WeEntity.TaskTimeCostTask" />
+        <AssociationConnector Association="WeEntity.TaskSiteUserAutor" />
+        <AssociationConnector Association="WeEntity.TaskPerformers" />
+        <AssociationConnector Association="WeEntity.TaskClient" />
+        <AssociationConnector Association="WeEntity.TaskTimeCostSiteUser" />
+      </Diagram>
+      <Diagram DiagramId="a85c821e296d4fb99a0c2765a26994ad" Name="main2" >
+        <EntityTypeShape EntityType="WeEntity.Client" Width="1.5" PointX="4.875" PointY="2" />
+        <EntityTypeShape EntityType="WeEntity.Department" Width="1.5" PointX="8.125" PointY="2" />
+        <AssociationConnector Association="WeEntity.DepartmentDepartment" />
+        <AssociationConnector Association="WeEntity.ClientDepartment" />
+        <EntityTypeShape EntityType="WeEntity.PasswordRecover" Width="2.125" PointX="6.75" PointY="9.5" />
+        <EntityTypeShape EntityType="WeEntity.SiteUser" Width="1.5" PointX="0.5" PointY="3.5" />
+        <AssociationConnector Association="WeEntity.SiteUserClient" />
+        <EntityTypeShape EntityType="WeEntity.Task" Width="1.5" PointX="3.75" PointY="6.125" />
+        <AssociationConnector Association="WeEntity.TaskSiteUserAutor" />
+        <AssociationConnector Association="WeEntity.TaskPerformers" />
+        <AssociationConnector Association="WeEntity.TaskClient" />
+        <EntityTypeShape EntityType="WeEntity.TaskTimeCost" Width="1.5" PointX="3.875" PointY="10.25" />
+        <AssociationConnector Association="WeEntity.TaskTimeCostTask" />
+        <AssociationConnector Association="WeEntity.TaskTimeCostSiteUser" />
+        <EntityTypeShape EntityType="WeEntity.TaskTypes" Width="1.5" PointX="6.75" PointY="7.25" />
+        <AssociationConnector Association="WeEntity.TaskTypesTask" />
+        <EntityTypeShape EntityType="WeEntity.TastStates" Width="1.5" PointX="6.75" PointY="5.25" />
+        <AssociationConnector Association="WeEntity.TaskTastStates" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,19 @@
+﻿@using WebExplorer.Auth
+@if(WeMembership.IsAuthorized)
+{
+    <div class="chat hidden" id="chat">
+        <div class="messages" id="chat-messages" data-bind="foreach: Messages">
+            <div class="message">
+                <span class="date" data-bind="text: '['+date+']'"></span>
+                <span class="name" data-bind="text: author+'&gt;'"></span>
+                <span data-bind="text:body"></span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="write form-horizontal control-group">
+            <input type="text" id="chat-message" class="input-xxlarge"/>
+            <button  id="chat-send" class="btn btn-primary">Сказать</button>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/chat")
+}

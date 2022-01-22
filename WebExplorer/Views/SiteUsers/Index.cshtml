@@ -1,0 +1,60 @@
+﻿@model WebExplorer.Models.SiteUsers.SiteUsersListModel
+
+@{
+    ViewBag.Title = "Список пользователей сайта";
+    
+}
+<div class="container">
+@if (WebExplorer.Auth.WeMembership.IsAdmin)
+{   
+    <p>список пользователей сайта, доступен для админа</p>
+    <a class="news-edit-link" href="@Url.Action("Add")">Добавить пользователя</a>
+        
+        <div style="margin: 5px;">
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">ИД пользователя: </td>
+                    <td class="tdDpt">Логин пользователя: </td>
+                    <td class="tdDpt">E-mail пользователя: </td>
+                    <td class="tdDpt">Название роли: </td>
+                    <td class="tdDpt">Связанный работник: </td>
+                    <td class="tdDpt">Подтвержден: </td>
+                    <td class="tdDpt">Заблокирован: </td>
+                    <td class="tdDpt">Является Администратором: </td>
+                </tr>
+                @foreach (var user in Model.Users)
+                {
+                    <tr class="trDpt">
+                        <td class="tdDpt">
+                            @user.Id</td>
+                        <td class="tdDpt">
+                            <a href="@Url.Action("Edit", new {id = user.Id})">@user.Login</a>
+                        </td>
+                        <td class="tdDpt">
+                            @user.Email
+                        </td>
+                        <td class="tdDpt">
+                            @user.SiteUserRole
+                        </td>
+                        <td class="tdDpt">
+                            @user.WorkerName
+                        </td>
+                        <td class="tdDpt">
+                            @user.IsApproved
+                        </td>
+                        <td class="tdDpt">
+                            @user.IsLocked
+                        </td>
+                        <td class="tdDpt">
+                            @user.IsAdmin
+                        </td>
+                    </tr>
+                }
+            </table>
+            </div>
+}
+else
+{
+    <p>Доступ закрыт</p>
+}
+</div>

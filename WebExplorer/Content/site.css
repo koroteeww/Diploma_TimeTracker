@@ -1,0 +1,455 @@
+﻿body
+{
+    color: #333;
+    font-size: 1em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    padding-bottom: 60px;
+}
+
+header {
+    height: 60px; 
+    padding: 40px 30px 0 30px;
+    background: url(images/bg.png); 
+    margin-bottom: 10px;
+}
+    header h1
+    {
+        font-size: 4.5em;
+        color: #eee;
+    }
+    header h2
+    {
+        font-size: 2.5em;
+        color: #eee;
+    }
+/****************************
+*      Shared styles        *
+*****************************/
+.links-block {
+    
+}
+
+    .links-block a
+    {
+        display: inline-block;
+        padding: 0 7px;
+    }
+
+.control-group {
+    
+}
+    .control-group .text-value
+    {
+        padding-top: 3px;
+    }
+
+.view-edit-form
+{
+}
+    .view-edit-form.view-mode .edit-only,
+    .view-edit-form.view-mode input,
+    .view-edit-form.edit-mode .view-only,
+    .view-edit-form.edit-mode .text-value
+    {
+        display: none;
+    }
+
+    .view-edit-form.edit-mode .text-value.edit-visible
+    {
+        display: block;
+    }
+
+/****************************
+*      WysiBB               *
+*****************************/
+.wysibb .ve-tlb-cut {
+    background: url(wysibb/img/cut.png) no-repeat 2px 2px;
+    width: 20px;
+}
+
+.wysibb-body hr {
+    border-top: 4px solid #EEE;
+}
+
+/****************************
+*        Chat styles        *
+*****************************/
+.chat
+{
+    background: rgba(0, 0, 0, 0.95);
+    /* ie */
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#F2000000,endColorstr=#F2000000);
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    overflow: hidden;
+    margin-top: 41px;
+}
+    .chat.hidden
+    {
+        top: -400%;
+        display: block;
+    }
+    .chat.shown
+    {
+        top: 0px;
+    }
+    .chat .messages
+    {
+        height: 400px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin: 10px 10px 48px 10px;
+    }
+        .chat .messages .message
+        {
+            color: #4EFF00;
+        }
+            .chat .messages .message .date
+            {
+
+            }
+            .chat .messages .message .name
+            {
+                color: #309200;
+            }
+
+    .chat .write
+    {
+        position: absolute;
+        bottom: 0px;
+        padding-left: 10px;
+    }
+
+header .last-message {
+    position: absolute;
+    right: 10px;
+    display: block;
+    color: #999;
+    top: 45px;
+    max-width: 400px;
+    overflow: hidden;
+    height: 20px;
+}
+    header .last-message:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+
+/****************************
+*        News styles        *
+*****************************/
+.news-grid
+{
+}
+.news-item
+{
+    margin-bottom: 40px;
+    overflow: hidden
+}
+    .news-item .news-title
+    {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 5px;
+        font-size: 21px;
+        line-height: 40px;
+        color: #333;
+        border: 0;
+        border-bottom: 1px solid #E5E5E5;
+    }
+    .news-item .news-title a
+    {
+        color: #333;
+    }
+    .news-item .news-body
+    {
+    }
+    .news-item .news-footer
+    {
+        display: inline-block;
+        margin-top: 10px;
+        border: 1px solid #e5e5e5;
+        color: #888;
+        border-radius: 4px;
+        padding: 3px 15px;
+        font-size: .9em;
+    }
+        .news-item .news-footer .news-edit-link,
+        .news-item .news-footer .news-comment-count,
+        .news-item .news-footer .news-read-more
+        {
+            display: inline-block;
+            margin-left: 20px;
+        }
+        .news-item .news-footer .news-remove-link
+        {
+            display: inline-block;
+            margin-left: 5px;
+        }
+        .news-item .news-footer .news-remove-link,
+        .news-item .news-footer .news-edit-link
+        {
+            top: 2px;
+            position: relative;
+            opacity: .5;
+        }
+            .news-item .news-footer .news-remove-link:hover,
+            .news-item .news-footer .news-edit-link:hover
+            {
+                opacity: 1;
+            }
+        .news-item .news-footer .news-author
+        {
+            font-weight: bold;
+        }
+
+.news-add {
+    
+}
+    .news-add textarea
+    {
+        width: 100%;
+        height: 250px;
+    }
+
+.comment-grid
+{
+}
+.comment-item
+{
+    margin-bottom: 20px;
+    overflow: hidden
+}
+    .comment-item .comment-title
+    {
+        border-bottom: 1px solid #ddd;
+        display: inline-block;
+        padding-top: 3px;
+        margin-bottom: 3px;
+    }
+    .comment-item .comment-author
+    {
+        font-size: 1em;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .comment-item .comment-date
+    {
+        color: #888;
+        font-size: .8em;
+        margin-right: 10px;
+    }
+    .comment-item .comment-body
+    {
+        margin-left: 7px;
+    }
+    .comment-item .comment-edit-link .comment-remove-link
+    {
+        font-size: .8em;
+        opacity: 0.5;
+    }
+        .comment-item .comment-edit-link:hover .comment-remove-link:hover
+        {
+            opacity: 1;
+        }
+
+.comment-add
+{
+    margin-top: 60px;
+    max-width: 700px;
+}
+    .comment-add textarea
+    {
+        width: 100%;
+        height: 200px;
+    }
+
+/****************************
+*   File explorer styles    *
+*****************************/
+.explorer-path .icon-home,
+.explorer-path .icon-repeat
+{
+    margin-top: 5px;
+    opacity: .3;
+}
+
+.file-grid {
+    padding-left: 15px;
+    border: 2px dashed white;
+}
+    .file-grid.over
+    {
+        border-radius: 5px;
+        border-color: #999;
+        background-color: #FFFFCC;
+    }
+        .file-grid.over .file-row:hover
+        {
+            background: none;
+        }
+    .file-grid .file-row
+    {
+        padding-top: 2px;
+    }
+        .file-grid .file-row:hover
+        {
+            background-color: #f9f9f9;
+        }
+
+    .file-grid .file-name
+    {
+        
+    }
+
+        .file-grid .file-name a
+        {
+            display: block;
+            background-repeat: no-repeat;
+            background-position: 0 3px;
+            padding-left: 27px;
+            padding-top: 4px;
+            min-height: 26px;
+        }
+            .file-grid .file-name a.directory
+            {
+                background-image: url(images/folder.png);
+            }
+            .file-grid .file-name a.archive
+            {
+                background-image: url(images/archive.png);
+            }
+            .file-grid .file-name a.word
+            {
+                background-image: url(images/doc.png);
+            }
+            .file-grid .file-name a.image
+            {
+                background-image: url(images/image.png);
+            }
+            .file-grid .file-name a.pdf
+            {
+                background-image: url(images/pdf.png);
+            }
+            .file-grid .file-name a.powerpoint
+            {
+                background-image: url(images/powerpoint.png);
+            }
+            .file-grid .file-name a.excel
+            {
+                background-image: url(images/excel.png);
+            }
+            .file-grid .file-name a.music
+            {
+                background-image: url(images/music.png);
+            }
+            .file-grid .file-name a.unknown
+            {
+                background-image: url(images/unknown.gif);
+            }
+            .file-grid .file-name a.video
+            {
+                background-image: url(images/video.png);
+            }
+            
+
+    .file-grid .file-info {
+        color: #999;
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    .file-grid [class*="span"]
+    {
+        min-height: 23px;
+    }
+
+    .file-grid .new-folder-row
+    {
+        opacity: .5;
+    }
+        .file-grid .new-folder-row.active
+        {
+            opacity: 1;
+        }
+            .file-grid .new-folder-row.active button
+            {
+                display: inline;
+            }
+        .file-grid .new-folder-row .folder-name
+        {
+            padding-left: 27px;
+            padding-top: 15px;
+        }
+        .file-grid .new-folder-row button
+        {
+            margin-bottom: 11px;
+            margin-left: 10px;
+            display: none
+        }
+
+.upload-file-info
+{
+}
+    .upload-file-info button
+    {
+        margin-left: 10px;
+    }
+
+    .upload-file-info .progress
+    {
+        margin-top: 3px;
+    }
+     
+/****************************
+*   Bootstraper override    *
+*****************************/
+.sidebar-nav
+{
+    padding: 9px 0;
+}
+
+.breadcrumb.btn-breadcrumb li {
+    line-height: 26px;
+}
+.breadcrumb.btn-breadcrumb ul {
+    margin-bottom: 0px;
+}
+
+legend {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+/****************************
+*   wildboar47    *
+*****************************/
+.tableDpt 
+{
+    padding: 5px;
+    border: 1px solid black;
+    width: auto;
+    
+}
+.trDpt 
+{
+    padding: 5px;
+    border: 1px solid black;
+    
+    width: auto;
+}
+.tdDpt 
+{
+    padding: 5px;
+    border: 1px solid black;
+    
+    width: auto;
+}
+/********************
+*   Mobile Styles   *
+********************/
+@media only screen and (max-width: 850px)
+{
+}
+

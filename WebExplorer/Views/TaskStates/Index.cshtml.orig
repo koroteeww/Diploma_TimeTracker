@@ -1,0 +1,41 @@
+﻿@model WebExplorer.Models.TaskStatesListModel
+
+@{
+    ViewBag.Title = "Состояния задач";
+    
+}
+<div class="container">
+@if (WebExplorer.Auth.WeMembership.IsAdmin)
+{   
+    <p>список состояний задач, доступен для начальника и админа</p>
+    <a class="news-edit-link" href="@Url.Action("Add")">Добавить состояние задачи</a>
+        
+        <div style="margin: 5px;">
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">Ид состояния: </td>
+                    <td class="tdDpt">Название состояния: </td>
+                    <td class="tdDpt">Описание состояния: </td>
+                </tr>
+                @foreach (var state in Model.TaskStates)
+                {
+                    <tr class="trDpt">
+                        <td class="tdDpt">
+                            @state.Id
+                        </td>
+                        <td class="tdDpt">
+                            <a href="@Url.Action("Edit", new {id = state.Id})"> @state.Name</a></td>
+                        <td class="tdDpt">
+                            @state.Description
+                        </td>
+                        
+                    </tr>
+                }
+            </table>
+            </div>
+}
+else
+{
+    <p>Доступ закрыт</p>
+}
+    </div>

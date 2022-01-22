@@ -1,0 +1,42 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Models.ClientsDepartments.DepartmentAddModel
+
+@{
+    Layout = "../Shared/_Form.cshtml";
+    ViewBag.Title = (Model.Id.HasValue )
+                        ? "Редактировать отдел"
+                        : "Создать отдел";
+}
+
+@if (WeMembership.IsAuthorized)
+{
+    <form class="form-horizontal news-add" method="POST">
+        <div class="control-group">
+            @Html.TextBoxFor(m => m.Name, new {@class = "input-xxlarge", id = "news-title", placeholder = "Название отдела"})
+            
+        </div>
+        <p>Выберите родительский отдел:</p>
+        <div>
+            @if (Model.ParentId.HasValue)
+            {
+                @Html.DropDownListFor(m => m.ParentId, new SelectList(Model.ExistingDepartments, "Id", "Name", Model.ParentId));
+            }
+            else
+            {
+                @Html.DropDownListFor(m => m.ParentId, new SelectList(Model.ExistingDepartments, "Id", "Name"));
+            }
+                
+                </div>
+        
+        <p></p>
+        <p></p>
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary btn-large">@(Model.Id.HasValue ? "Сохранить" : "Создать")</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+}
+@section scripts
+{
+    
+}

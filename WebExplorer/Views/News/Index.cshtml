@@ -1,0 +1,61 @@
+﻿@using Newtonsoft.Json
+@using WebExplorer.Helpers
+@using WebExplorer.Auth
+@model WebExplorer.Models.NewsListModel
+@{
+    ViewBag.Title = "Новости сайта";
+}
+
+<div class="container">
+    <p>Список новостей сайта. Для авторизованных пользователей.</p>
+    @if (WeMembership.IsAuthorized)
+    {
+        foreach (var news in Model.News)
+        {
+            <div class="news-grid" id="news-grid">
+                <div class ="news-item">
+                    <div class="news-title">
+                        <a href="@Url.Action("Detail", new {id = news.Id})">@news.Title</a>
+                    </div>
+                    <div class="news-body">
+                        @Html.Raw(news.Body)
+                    </div>
+                    <div class="news-footer">
+                        @Html.Partial("_NewsInfo", news)
+
+                        <a class="news-read-more" href="@Url.Action("Detail", new {id = news.Id})">
+                            Читать дальше →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (Model.TotalPagesCount > 1)
+         {
+             var startPage = Math.Max(1, Model.CurrentPage - 3);
+             var endPage = Math.Min(Model.TotalPagesCount, Model.CurrentPage + 3);
+             <div class="pagination">
+                 <ul>
+                     @if (Model.CurrentPage > 1)
+                     {
+                         <li><a href="@Url.Action("Index", new {id = Model.CurrentPage - 1})">«</a></li>
+                     }
+                     @for (var i = startPage; i <= endPage; i++)
+                     {
+                         <li class="@(i == Model.CurrentPage ? "active" : "")"><a href="@Url.Action("Index", new {id = i})">@i</a></li>
+                     }
+                     @if (Model.CurrentPage < Model.TotalPagesCount)
+                     {
+                         <li><a href="@Url.Action("Index", new {id = Model.CurrentPage + 1})">»</a></li>
+                     }
+                
+                 </ul>
+             </div>
+         }
+    }
+
+    @section scripts
+    {
+    }
+</div>

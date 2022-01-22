@@ -1,0 +1,52 @@
+﻿@model WebExplorer.Models.DepartmentTreeModel
+
+@{
+    ViewBag.Title = "Список отделов";
+    
+}
+<div class="container">
+    @if (WebExplorer.Auth.WeMembership.IsAdmin || WebExplorer.Auth.WeMembership.IsManager)
+    {
+        <p>Дерево отделов предприятия, доступно для администратора и начальника</p>
+        <a class="news-edit-link" href="@Url.Action("Add")">Добавить отдел</a>
+        
+        <div style="margin: 5px;">
+            <table class="tableDpt">
+                <tr class="trDpt">
+                    <td class="tdDpt">ИД отдела: </td>
+                    <td class="tdDpt">Название отдела: </td>
+                    <td class="tdDpt">ИД родительского отдела: </td>
+                    <td class="tdDpt">Название родительского отдела: </td>
+                </tr>
+                @foreach (var dpt in Model.Departments)
+                {
+                    <tr class="trDpt">
+                        <td class="tdDpt">
+                            @dpt.Id</td>
+                        <td class="tdDpt">
+                            @if (WebExplorer.Auth.WeMembership.IsAdmin)
+                            {
+                                <a href="@Url.Action("Edit", new {id = dpt.Id})">@dpt.Name</a>
+                            }
+                            else
+                            {
+                                @dpt.Name
+                            }
+                        </td>
+                        <td class="tdDpt">
+                            @dpt.ParentId
+                        </td>
+                        <td class="tdDpt">
+                            @dpt.ParentName
+                        </td>
+
+                    </tr>
+                }
+            </table>
+            </div>
+    }
+    else
+    {
+        <p>Доступ закрыт</p>
+    }
+</div>

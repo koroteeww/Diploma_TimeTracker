@@ -1,0 +1,26 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Entity.News
+
+@{
+    ViewBag.Title = "Удалить новость";
+}
+
+<div class="container">
+    @if (WeMembership.IsAuthorized)
+    {
+        <form class="form-horizontal news-add" method="POST">
+            <div class="control-group">
+                <b>@Model.Title</b>
+                @Html.HiddenFor(m => m.Id)
+                @Html.Hidden("Confirm", true)
+            </div>
+        
+            <div class="clearfix"></div>
+
+            <div>
+                <button type="submit" class="btn btn-danger">Подтверждаю, удаляйте</button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    }
+</div>

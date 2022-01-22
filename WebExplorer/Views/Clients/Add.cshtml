@@ -1,0 +1,80 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Models.ClientsDepartments.ClientsAddModel
+
+@{
+    Layout = "../Shared/_Form.cshtml";
+    ViewBag.Title = (Model.Id.HasValue)
+                        ? "Редактировать сотрудника"
+                        : "Создать сотрудника";
+    
+}
+
+@if (WeMembership.IsAuthorized)
+{
+    <form class="form-horizontal news-add" method="POST">
+        <div class="control-group">
+            <label>Фамилия:</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "input-xxlarge", id = "news-title", placeholder = "Фамилия", reqired=true})
+
+        </div>
+        <div class="control-group">
+            <label>Имя:</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "input-xxlarge", id = "news-title", placeholder = "Имя", reqired=true })
+        </div>
+       
+        <div class="control-group">
+            <label>Отчество:</label>
+            @Html.TextBoxFor(m => m.MiddleName, new { @class = "input-xxlarge", id = "news-title", placeholder = "Отчество" })
+
+        </div>
+        <p>Выберите отдел:</p>
+        <div>
+            @if (Model.DepartmentId.HasValue)
+            {
+                @Html.DropDownListFor(m => m.DepartmentId, new SelectList(Model.ExistingDepartments, "Id", "Name", Model.DepartmentId));
+            }
+            else
+            {
+                @Html.DropDownListFor(m => m.DepartmentId, new SelectList(Model.ExistingDepartments, "Id", "Name"));
+            }
+
+        </div>
+        <p></p>
+        <div class="control-group">
+            <label>Кабинет (место нахождения):</label>
+            @Html.TextBoxFor(m => m.Location, new { @class = "input-xxlarge", id = "news-title", placeholder = "Кабинет (место нахождения)",reqired=true })
+
+        </div>
+        <div class="control-group">
+            <label>Должность:</label>
+            @Html.TextBoxFor(m => m.Position, new { @class = "input-xxlarge", id = "news-title", placeholder = "Должность",reqired=true })
+
+        </div>
+        <div class="control-group">
+            <label>Организация:</label>
+            @Html.TextBoxFor(m => m.Company, new { @class = "input-xxlarge", id = "news-title", placeholder = "Организация" })
+
+        </div>
+        <div class="control-group">
+            <label>Номер телефона:</label>
+            @Html.TextBoxFor(m => m.Phone, new { @class = "input-xxlarge", id = "news-title", placeholder = "Номер телефона" })
+
+        </div>
+        <div class="control-group">@Html.CheckBoxFor(m=>m.IsManager, new {@class = "input-xxlarge", id = "news-title",reqired=true,placeholder="Начальник"}) Является начальником </div>
+        <div class="control-group">
+            <label>Комментарии:</label>
+            @Html.TextBoxFor(m => m.Comment, new { @class = "input-xxlarge", id = "news-title", placeholder = "Комментарии" })
+
+        </div>
+        <p></p>
+        <p></p>
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary btn-large">@(Model.Id.HasValue ? "Сохранить" : "Создать")</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+}
+@section scripts
+{
+
+}

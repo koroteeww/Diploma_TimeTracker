@@ -1,0 +1,33 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Models.ErrorsModel
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="container account">    
+    <form class="form-horizontal view-edit-form edit-mode" id="account-form" method="POST">
+        <legend>@ViewBag.Title</legend>
+        
+        <div class="account-errors">
+            @foreach (var error in Model.Errors)
+            {
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>Хм...</strong>
+                    @error
+                </div>   
+            }
+        </div>
+
+        @RenderBody()
+    </form>
+
+    @if(!WeMembership.IsAuthorized)
+    {
+        <div class="account-links links-block">
+            <a href="@Url.Action("LogOn")">Авторизация</a>
+            <a href="@Url.Action("Register")">Регистрация</a>
+            <a href="@Url.Action("PasswordRecovery")">Забыли пароль?</a>
+        </div>
+    }
+</div>

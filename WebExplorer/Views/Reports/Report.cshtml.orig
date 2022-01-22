@@ -1,0 +1,56 @@
+﻿@model WebExplorer.Models.ReportModel
+
+@{
+    ViewBag.Title = "Отчет";
+}
+
+<div class="container">
+    <table class="tableDpt">
+        <tr class="trDpt">
+            <td class="tdDpt">Дата начала задачи: </td>
+            <td class="tdDpt">Название задачи: </td>
+            <td class="tdDpt">Описание задачи: </td>
+            <td class="tdDpt">Автор: </td>
+            <td class="tdDpt">Состояние задачи: </td>
+            <td class="tdDpt">Тип задачи: </td>
+            <td class="tdDpt">Затраты времени, часов: </td>
+            <td class="tdDpt">Исполнители: </td>
+            <td class="tdDpt">Клиенты: </td>
+        </tr>
+        @foreach (var task in Model.TaskReportModelList)
+        {
+            <tr class="trDpt">
+                <td class="tdDpt">
+                    @task.DateBeginS
+                </td>
+                <td class="tdDpt">
+                    <a href="@Url.Action("Edit", "Tasks",new {id = task.Id})"> @task.Name</a></td>
+                <td class="tdDpt">
+                    @task.Description
+                </td>
+                <td class="tdDpt">
+                    @task.AuthorName
+                </td>
+                <td class="tdDpt">
+                    @task.State
+                </td>
+                <td class="tdDpt">
+                    @task.Type
+                </td>
+                <td class="tdDpt">
+                    @task.costs.ToString("G")
+                </td>
+                <td class="tdDpt">
+                    @task.Pefrormers
+                </td>
+                <td class="tdDpt">
+                    @task.Clients
+                </td>
+            </tr>
+        }
+        
+    </table>
+    <p style="width: 80%">
+            Суммарные затраты времени: @Model.CostsSum.ToString("G")
+    </p>
+</div>

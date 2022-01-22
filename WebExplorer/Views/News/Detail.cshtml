@@ -1,0 +1,73 @@
+﻿@using WebExplorer.Auth
+@model WebExplorer.Models.NewsDetailModel
+
+@{
+    ViewBag.Title = "Новости";
+}
+
+<div class="container">
+    @if (WeMembership.IsAuthorized)
+    {
+        <div class ="news-item">
+            <div class="news-title">@Model.Title</div>
+            <div class="news-body">
+                @Html.Raw(Model.Body)
+            </div>
+            <div class="news-footer">
+                @Html.Partial("_NewsInfo", Model)
+            </div>
+        </div>
+
+        <div class="comment-grid">
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment-item">
+                    <a name="comment-item-@comment.Id" id="comment-item-@comment.Id"></a>
+                    <div class="comment-title">
+                        <span class="comment-author">
+                            @comment.Author
+                        </span>
+                        <span class="comment-date">
+                            @comment.Date
+                        </span>
+                        <!-- Редактирование комментариев -->
+                        @if (comment.CanEdit)
+                        {
+                            <a class="news-edit-link" href="@Url.Action("Edit", "Comment", new {id = comment.Id})">
+                                <span class="icon-pencil"></span>
+                            </a>
+                            <a class="news-remove-link" href="@Url.Action("Delete", "Comment", new {id = comment.Id})">
+                                <span class="icon-remove"></span>
+                            </a>
+                        }
+                    </div>
+                    <div class="comment-body">
+                        @Html.Raw(comment.Body)
+                    </div>
+                </div>
+            }
+        </div>
+        if (WeMembership.IsAuthorized)
+         {
+             <div class="comment-add" id="div-form-comment">
+                 <form id="form-comment" action="@Url.Action("Add", "Comment", new {id = Model.Id, commentId = 0})" class="form-horizontal" method="POST">
+                     <textarea id="comment-body" name="body"></textarea>
+                     <div class="pull-right" id ="div-submit-comment">
+                         <button id="submit-comment" type="submit" class="btn btn-primary btn-large">Высказаться</button>
+                     </div>
+                     <div class="clearfix"></div>
+                 </form>
+             </div>
+         }
+    }
+</div>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $("#comment-body").wysibb(window.wbbOptComment);
+            $(".wbb-lightbox").hide();
+        });
+    </script>
+}

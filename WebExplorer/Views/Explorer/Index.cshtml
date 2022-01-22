@@ -1,0 +1,175 @@
+﻿@using WebExplorer.Auth
+@{
+    ViewBag.Title = "Файловый архив";
+}
+<div class="container">
+    <div class="row-fluid" id="explorer">
+        
+        <!-- Основная панель -->
+        <div class="span12">
+            <!-- Текущий путь -->
+            <div class="breadcrumb btn-breadcrumb explorer-path">
+                <ul class="pull-left">
+                    <li>
+                        <a href="#" data-bind="css: {active: CurrentPath().length == 0}, click: function(e){Open('/');}"><i class="icon-home" title="Корень"></i></a> 
+                        <span data-bind="visible: CurrentPath().length > 0" class="divider">/</span>
+                    </li>
+                    <!-- ko foreach: CurrentPath -->
+                    <li>
+                        <a href="#" data-bind="attr:{href:'#'+$parent.GetFullPath($index())}, click: function(e){ $parent.Open($parent.GetFullPath($index())); }, css: {active: $index() === $parent.CurrentPath().length - 1}, text: $data"></a> 
+                        <span data-bind="visible: $index() !== $parent.CurrentPath().length - 1" class="divider">/</span>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                @if(WeMembership.IsAuthorized)
+                {
+                    <div class="pull-right">
+                        <button class="btn btn-primary btn-small" data-toggle="modal" id="new-folder-open-modal" data-target="#new-folder">Создать папку</button>
+                        <button class="btn btn-primary btn-small" data-toggle="modal" id="upload-file-open-modal" data-target="#upload-file">Загрузить файл</button>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+            
+            <!-- Ошибки -->
+            <div data-bind="foreach: Errors, visible:Errors().length>0" style="display: none">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-bind="click: function(e){$parent.Errors.remove(e);}">×</button>
+                    <strong>Ошибка загрузки!</strong>&nbsp;<span data-bind="text: $data"></span>
+                </div>
+            </div>
+            
+            @if(WeMembership.IsAuthorized)
+            {
+                <!-- Ход загрузки файлов -->
+                <div data-bind="visible: UploadingFiles().length, foreach: UploadingFiles" class="upload-file-info" style="display: none">
+                    <div class="alert alert-info">
+                        <strong>Файлы загружаются, подожите..</strong>
+                        <div class="clearfix"></div>
+                        <button type="button" class="btn btn-small btn-danger pull-right" data-bind="click: function(e){$data.Cancel();}">Отменить</button>    
+                        <div class="progress progress-striped active">
+                            <div class="bar" data-bind="style:{width: Progress() + '%'}"></div>
+                        </div>    
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            }
+
+            <!-- Грид с файлами -->
+            <div class="file-grid @(WeMembership.IsAuthorized?"dropable":"")" id="file-grid">
+                <!-- Список файлов -->
+                <div data-bind="foreach: Files">
+                    <div class="row-fluid file-row">
+                        <div class="span8 file-name">
+                            <a data-bind="attr:{href: (isDirectory?('#'+link):link), 'class': type, 'className': type}, click: function(e){return !isDirectory || $parent.Open(link);}">
+                                <span data-bind="text: name"></span>
+                            </a>
+                        </div>
+                        <div data-bind="visible: !isDirectory" class="span2 file-info">
+                            <span data-bind="text: $parent.GetPrintSize(size)"></span>
+                        </div>
+                        <div data-bind="visible: !isDirectory" class="span2 file-info">
+                            <span data-bind="text: date"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                @if(WeMembership.IsAuthorized)
+                {
+                    <!-- Добавление новой папки -->
+                    <div class="new-folder-row" id="new-folder-row">
+                        <div class="span8 folder-name">
+                            <!-- Ошибки -->
+                            <div class="alert alert-error hide">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <strong>Ошибка создания папки.</strong>&nbsp;<span>Возможно имя содержит недопустимые символы.</span>
+                            </div>
+
+                            <input type="text" id="new-folder-row-name" placeholder="Новая папка"/>
+                            <button class="btn btn-primary btn-small" id="new-folder-row-create" data-loading-text="Создание...">Создать папку</button>
+                        </div> 
+                    </div>
+
+                    <!-- Информация -->
+                    <div class="clearfix"></div>
+                    <div class="muted" style="color: #ccc; margin-left: 30px; font-size: .9em">
+                        Файлы для загрузки можно перетаскивать прямо сюда, прямо из винды, и они сами, магически, попадут на сайт. Мы до сих пор
+                        не понимаем как они это делают.
+                    </div>
+                }
+            </div>
+        </div>
+        @if(WeMembership.IsAuthorized)
+        {
+            <!-- Создание папки -->
+            <div class="modal hide fade" id="new-folder" tabindex="-1" role="dialog" aria-labelledby="new-folder-label" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="new-folder-label">Создать папку</h3>
+                </div>
+                <div class="modal-body">
+                    <!-- Ошибки -->
+                    <div class="alert alert-error hide">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <strong>Ошибка загрузки файла.</strong>&nbsp;<span>Возможно имя содержит недопустимые символы или ошибка сети.</span>
+                    </div>
+                
+                    <form class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="new-folder-name">Имя папки:</label>
+                            <div class="controls">
+                                <input id="new-folder-name" type="text"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+                    <button class="btn btn-primary" id="new-folder-create" data-loading-text="Создание...">Создать</button>
+                </div>
+            </div>
+
+            <!-- Загрузка файла -->
+            <div class="modal hide fade" id="upload-file" tabindex="-1" role="dialog" aria-labelledby="upload-file-label" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="upload-file-label">Загрузить файл</h3>
+                </div>
+                <div class="modal-body">
+                    <!-- Ошибки -->
+                    <div class="alert alert-error hide">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <strong>Ошибка загрузки файла.</strong>&nbsp;<span>Возможно у вас недостаточно прав.</span>
+                    </div>
+                
+                    <!-- Форма отправки -->
+                    <iframe name="upload-file-iframe" id="upload-file-iframe" class="hide"></iframe>
+                    <form enctype="multipart/form-data" method="POST" id="upload-file-form" class="form-horizontal" target="upload-file-iframe" data-bind="{attr:{action:ApiUrl+'/files'}}">
+                        <input type="hidden" name="path" value="/" data-bind="value: CurrentPath().join('/')" />
+                        <div class="control-group">
+                            <label class="control-label">Выберите файл:</label>
+                            <div class="controls">
+                                <input id="upload-file-value-1" name="file-1" type="file"/>
+                                <input id="upload-file-value-2" name="file-2" type="file"/>
+                                <input id="upload-file-value-3" name="file-3" type="file"/>
+                                <input id="upload-file-value-4" name="file-4" type="file"/>
+                                <input id="upload-file-value-5" name="file-5" type="file"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+                    <button class="btn btn-primary" id="upload-file-save" data-loading-text="Сохранение...">Загрузить</button>
+                </div>
+            </div>
+        }
+    </div>
+    
+    @section scripts
+    {
+        <!-- Логика эксплорера -->
+        @Scripts.Render("~/bundles/fileExplorer")
+    }
+
+</div><!--/.fluid-container-->

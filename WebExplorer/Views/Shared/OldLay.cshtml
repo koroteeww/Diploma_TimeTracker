@@ -1,0 +1,125 @@
+﻿@using Newtonsoft.Json
+@using WebExplorer.Auth
+@using WebExplorer.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Система Учета и Контроля рабочего времени</title>
+    @Styles.Render("~/Content/libs")
+    @Styles.Render("~/Content/themes-base")
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/libs")
+    @Scripts.Render("~/bundles/application")
+    <script>
+        //информация о текущем пользователе
+        window.auth = @Html.Raw(JsonConvert.SerializeObject(WeMembership.IsAuthorized ? WeMembership.GetCurrentUser().ToUserModel() : null))
+    </script>
+</head>
+<body>
+    @{
+        var isAtHome = Request.Url != null && (Request.Url.LocalPath == "/" || Request.Url.LocalPath.StartsWith("/Home/Index"));
+    }
+
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand"  href="/">Система Учета и Контроля рабочего времени</a>
+                <div class="nav-collapse">
+                    <!-- Меню аккаунта -->
+                    <ul class="nav pull-right">
+                        <li class="dropdown">
+                            @if (WeMembership.IsAuthorized)
+                            {
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-login" data-bind="text: 'Привет, ' + (auth && auth.login)"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("Index", "Account")">Мой профиль</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("LogOff", "Account")">Выход</a></li>
+                                </ul>
+                                <script>ko.applyBindings(window.auth,$("#topmenu-login")[0])</script>
+                            }
+                            else
+                            {
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Вход на сайт</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("LogOn", "Account")">Войти</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("PasswordRecovery", "Account")">Восстановление пароля</a></li>
+                                </ul>
+                            }
+                        </li>
+                    </ul>
+                    <!-- Главное меню -->
+                    <ul class="nav">
+                        @if (WeMembership.IsAuthorized)
+                        {
+                            <li class="">
+                                <a href="@Url.Action("News", "Home")">Новости</a>
+                            </li>
+                            if (WeMembership.IsManager)
+                            {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-edit">Просмотр данных</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("TaskType", "List")">Типы задач</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("TaskState", "List")">Состояния задач</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("Employee", "List")">Сотрудники</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("Department", "List")">Отделы</a></li>
+                                </ul>
+
+                            </li>
+                                
+                            }
+                            if (WeMembership.IsAdmin)
+                            {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="topmenu-admin">Администрирование</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-toggle="modal" href="@Url.Action("Users", "List")">Пользователи</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("News", "List")">Новости</a></li>
+                                    <li><a data-toggle="modal" href="@Url.Action("NewsComments", "List")">Комментарии</a></li>
+
+                                </ul>
+
+                            </li>
+                                                
+                            }
+                            <li class="">
+                                <a href="@Url.Action("List", "Tasks")">Задачи</a>
+                            </li>
+                            <li class="">
+                                <a href="@Url.Action("List", "Reprots")">Отчеты</a>
+                            </li>
+                            
+
+
+
+
+
+
+                        }
+
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <!--
+        <h1 style="color: wheat; font-size: 3em">Главная страница</h1>-->
+    </header>
+
+    @RenderBody()
+
+    @RenderSection("scripts", required: false)
+    @Html.Partial("_Metrika")
+</body>
+</html>

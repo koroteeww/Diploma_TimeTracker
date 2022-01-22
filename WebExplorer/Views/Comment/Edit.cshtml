@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "../Shared/_Form.cshtml";
+    ViewBag.Title = "Редактировать комментарий";
+}
+
+<form class="form-horizontal news-add" method="POST">
+    <textarea id="news-body" name="body">@Model.Body</textarea>
+        
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary btn-large">Сохранить комментарий</button>
+    </div>
+    <div class="clearfix"></div>
+</form>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $("#news-body").wysibb(window.wbbOptComment);
+            $(".wbb-lightbox").hide();
+        });
+        $(function() {
+            //первичная информация
+            if (!$.cookie("addnews-help-shown")) {
+                //установим куку
+                $.cookie("addnews-help-shown", true, { expires: 365 * 2 });
+
+                $(".ve-tlb-cut").popover({
+                    animation: true,
+                    placement: 'top',
+                    delay: { show: 1000, hide: 1000 },
+                    content: "Используйте эту кнопку, чтобы отделить основую часть новости и превью."
+                }).popover('show');
+
+                setTimeout(function () { $(".ve-tlb-cut").popover('destroy'); }, 5000);
+            }
+        });
+    </script>
+}

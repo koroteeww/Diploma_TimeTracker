@@ -1,0 +1,106 @@
+﻿@using WebExplorer
+@using WebExplorer.Auth
+@model WebExplorer.Models.Tasks.TaskEditModel
+
+@{
+    ViewBag.Title = "Редактирование задачи";
+    Layout = "../Shared/_Form.cshtml";
+    
+}
+
+@if (WeMembership.IsAuthorized)
+{
+    <form class="form-horizontal news-add" method="POST">
+        @if (Model.IsCurUserAuthor)
+        {
+            <div class="control-group">
+                <label for="login">Название задачи</label>
+                @Html.TextBoxFor(m => m.Name, new {id = "login", placeholder = "Название задачи", reqired = true})
+            </div>
+            <div class="control-group">
+                <label for="email">Описание задачи</label>
+                @Html.TextBoxFor(m => m.Description, new {id = "email", placeholder = "Описание задачи"})
+            
+            </div>
+        }
+        <div class="control-group">
+            @if (Model.IsCurUserAuthor)
+            {
+                <label for="datebegin">Дата начала задачи:</label>
+                @Html.TextBoxFor(m => m.DateBeginForDisplay, new {@class = "datepicker", id = "datebegin", placeholder = ""})
+            }
+            <label for="dateend">Дата конца задачи:</label>
+            @Html.TextBoxFor(m=>m.DateEndForDisplay, new {@class = "datepicker", id="dateend", placeholder=""})
+            
+        </div>
+        @if (Model.IsCurUserAuthor)
+        {
+            <div class="control-group">
+                <label for="dateplan">Планируемая дата конца задачи:</label>
+                @Html.TextBoxFor(m => m.PlannedDateEndForDisplay, new {@class = "datepicker", id = "dateplan", placeholder = ""})
+                <label for="timecost">Планируемые затраты времени, часов:</label>
+                @Html.TextBoxFor(m => m.PlannedTimeCost, new {@class = "input-large", id = "timecost", placeholder = ""})
+            
+            </div>
+
+            <div class="control-group">
+                <label>Тип задачи:</label>
+                @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.TaskTypes, "Id", "Name"))
+
+            </div>
+        }
+            
+        
+        <div class="control-group">
+            <label for="comment">Комментарии</label>
+            @Html.TextBoxFor(m => m.Comments, new { id = "comment", placeholder = "Комментарии"})
+            
+        </div>
+        <div class="control-group">
+            <label>Статус задачи</label>
+            @Html.DropDownListFor(m => m.StateId, new SelectList(Model.TaskStates, "Id", "Name",Model.StateId))
+            
+        </div>
+        <div class="control-group">
+            <label>Добавить затраты времени:</label>
+            @Html.TextBoxFor(m => m.TimeCostToAdd, new { id = "time", placeholder = "затраты времени"})
+            
+        </div>
+        <div class="control-group">
+            <label>Уже затрачено времени:</label>
+            @foreach (var cost in Model.TaskCosts)
+            {
+                <span style="margin: 5px;">@cost.Spender</span>
+                <span style="margin: 5px;">@cost.DateTime</span>
+                <span style="margin: 5px;">@cost.Hours</span>
+                <br/>
+            }
+            
+        </div>
+        <p></p>
+        
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary btn-large">Сохранить</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+}
+@section scripts
+{
+    <script>
+        $.datepicker.setDefaults($.datepicker.regional["fr"]);
+        $.datepicker.setDefaults({ dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'] });
+        $('.datepicker').datepicker({
+            showOn: "both",
+            buttonImage: "../content/images/calendar.png",
+            buttonImageOnly: "true",
+            changeMonth: true,
+            changeYear: true,
+            showAnim: "slideDown",
+            firstDay: 1,
+            monthNamesShort: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сент", "Окт", "Ноя", "Дек"],
+            dateFormat: 'dd.mm.yy'
+        });
+
+    </script>
+}
